@@ -1,0 +1,2 @@
+# TerraSpectra
+Hyperspectral Crop Disease Forecasting
