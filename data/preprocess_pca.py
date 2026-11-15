@@ -23,6 +23,7 @@ def run_pca_reduction(n_components=16):
         np.float32
     )
     explained = pca.explained_variance_ratio_.sum() * 100
+    top3_ratios = pca.explained_variance_ratio_[:3].round(4).tolist()
 
     # 5. Save the compressed cube
     output_path = "data/processed_farm.h5"
@@ -31,7 +32,8 @@ def run_pca_reduction(n_components=16):
         f.create_dataset("labels", data=labels)
 
     print(
-        f"Saved {output_path} | New shape: {reduced_cube.shape} | Variance retained: {explained:.2f}%"
+        f"Saved {output_path} | New shape: {reduced_cube.shape} | "
+        f"Variance retained: {explained:.2f}% | Top-3 PCA ratios: {top3_ratios}"
     )
 
 
