@@ -5,7 +5,10 @@ from torch.utils.data import Dataset
 
 
 class HyperspectralPatchDataset(Dataset):
+    """PyTorch Dataset extracting 3D spatial-spectral patches for Conv3d input."""
+
     def __init__(self, h5_path="data/processed_farm.h5", patch_size=5):
+        """Loads PCA-reduced HDF5 cube and builds reflection-padded 3D patches."""
         with h5py.File(h5_path, "r") as f:
             cube = f["pca_cube"][:]      # Shape: (64, 64, 16)
             labels = f["labels"][:]      # Shape: (64, 64)
@@ -21,7 +24,7 @@ class HyperspectralPatchDataset(Dataset):
         self.patches = []
         self.targets = []
 
-        height, width, _ = cube.shape
+        height, width, bands = cube.shape
         for r in range(height):
             for c in range(width):
                 patch = padded_cube[r : r + patch_size, c : c + patch_size, :]
@@ -32,6 +35,9 @@ class HyperspectralPatchDataset(Dataset):
 
         self.patches = np.array(self.patches, dtype=np.float32)
         self.targets = np.array(self.targets, dtype=np.int64)
+        assert self.patches.shape[1:] == (1, bands, patch_size, patch_size), (
+            f"Unexpected patch shape: {self.patches.shape[1:]}"
+        )
 
     def __len__(self):
         return len(self.targets)
