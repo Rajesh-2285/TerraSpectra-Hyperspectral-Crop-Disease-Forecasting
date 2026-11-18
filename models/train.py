@@ -12,7 +12,8 @@ from models.cnn3d import TerraSpectra3DCNN
 from models.dataset import HyperspectralPatchDataset
 
 
-def train_and_audit():
+def train_and_audit(seed=42):
+    torch.manual_seed(seed)
     tracemalloc.start()
 
     # 1. Load 3D patches (4,096 pixels)
@@ -21,6 +22,7 @@ def train_and_audit():
 
     # 2. Setup beginner 3D-CNN, loss, and optimizer
     model = TerraSpectra3DCNN(num_classes=2)
+    print(f"Initialized TerraSpectra3DCNN | Trainable parameters: {model.count_parameters()}")
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
