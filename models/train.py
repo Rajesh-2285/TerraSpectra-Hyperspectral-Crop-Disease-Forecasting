@@ -86,3 +86,4 @@ def train_and_audit(seed=42):
 
 if __name__ == "__main__":
     train_and_audit()
+# Verified Week 2 3D-CNN training & tracemalloc extraction audit pipeline
