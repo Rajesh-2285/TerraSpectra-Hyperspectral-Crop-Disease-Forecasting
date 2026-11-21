@@ -41,3 +41,4 @@ if __name__ == "__main__":
         f"Model test passed | Input: {tuple(sample_batch.shape)} -> Output: {tuple(out.shape)} | "
         f"Trainable params: {model.count_parameters()}"
     )
+# Verified 3D-CNN inference shape compatibility for 5x5x16 patches
