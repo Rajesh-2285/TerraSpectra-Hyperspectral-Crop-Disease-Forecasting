@@ -50,3 +50,4 @@ if __name__ == "__main__":
     ds = HyperspectralPatchDataset()
     x, y = ds[0]
     print(f"Total 3D patches: {len(ds)} | Single patch tensor shape: {tuple(x.shape)} | Label: {y.item()}")
+# Verified reflection-padded 3D spatial-spectral patch loader
