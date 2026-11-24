@@ -1,3 +1,4 @@
+"""3D-CNN architecture definition for spatial-spectral crop disease classification."""
 import torch
 import torch.nn as nn
 
@@ -42,3 +43,4 @@ if __name__ == "__main__":
         f"Trainable params: {model.count_parameters()}"
     )
 # Verified 3D-CNN inference shape compatibility for 5x5x16 patches
+
